@@ -76,7 +76,7 @@ bool Confirmation();
 bool IsNumberSaved(string number);
 void UpdateSavedInfo();
 
-string savedUserInfo,
+string savedUserInfo, savedHistoryInfo,
     username, savedUsername, password, savedPassword, mobile, savedMobile;
 int bal;
 int choice;
@@ -407,6 +407,22 @@ void UserMenu()
             break;
         case 8:
         {
+            cout << "TranId  Description\tAmount\tBalance\n";
+
+            ifstream history("History.txt", ios::app);
+            while (getline(history, savedHistoryInfo))
+            {
+                string tranId, desc, amt, bal;
+
+                stringstream ss(savedHistoryInfo);
+                getline(ss, tranId, ',');
+                getline(ss, desc, ',');
+                getline(ss, amt, ',');
+                getline(ss, bal, ',');
+                cout << tranId << "\t" << desc << "\t" << amt << "\t" << bal << endl;
+            }
+            history.close();
+            break;
         }
         case 9:
             cout << "Logging out...\n";
